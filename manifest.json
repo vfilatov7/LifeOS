@@ -2,7 +2,7 @@
   "name": "Life OS",
   "short_name": "LifeOS",
   "description": "Personal Life Operating System — RPG your life",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#e8e6f0",
   "theme_color": "#6366f1",

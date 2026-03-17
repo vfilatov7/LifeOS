@@ -1,7 +1,8 @@
 const CACHE_NAME = 'lifeos-v10.2';
 const ASSETS = [
-  '/life-os-v10.2.html',
-  '/manifest.json',
+  './',
+  './index.html',
+  './manifest.json',
   'https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap'
 ];
 
