@@ -294,22 +294,7 @@ function defs(){return{name:'',totalXP:0,
   }
 }}
 
-// ============ 14-DAY SPRINT QUEST PLAN ============
-const SPRINT_START_KEY='lifeos_sprint_start';
-function getSprintStart(){
-  let s=localStorage.getItem(SPRINT_START_KEY);
-  if(!s){s=new Date().toISOString().split('T')[0];localStorage.setItem(SPRINT_START_KEY,s)}
-  return s;
-}
-function getSprintDay(){
-  const start=new Date(getSprintStart());
-  const now=new Date(); now.setHours(0,0,0,0); start.setHours(0,0,0,0);
-  return Math.floor((now-start)/86400000)+1;
-}
-
-// Default weekly quest templates (universal)
-const SPRINT_DAYS = {};
-
+// ============ WEEKLY QUEST TEMPLATES ============
 const WEEK_FALLBACK = {
   1:[{name:'Рабочий день',cat:'work'},{name:'Тренировка',cat:'sport'},{name:'Обучение',cat:'learn'},{name:'Свободное время',cat:'rest'}],
   2:[{name:'Рабочий день',cat:'work'},{name:'Код / проект',cat:'code'},{name:'Обучение',cat:'learn'},{name:'Отдых',cat:'gaming'}],
@@ -326,22 +311,11 @@ function generateDailyQuests(){
   const today=todayStr();
   if(st.questDate===today) return;
   const aiQuests=st.quests.filter(q=>q.id.startsWith('ai_')&&q.ts&&new Date(q.ts).toDateString()===new Date().toDateString());
-  const sprintDay=getSprintDay();
-  let pool, dayLabel;
-  if(sprintDay>=1 && sprintDay<=14 && SPRINT_DAYS[sprintDay]){
-    const sd=SPRINT_DAYS[sprintDay];
-    pool=sd.quests;
-    dayLabel=sd.label;
-  } else {
-    const dow=new Date().getDay();
-    pool=WEEK_FALLBACK[dow]||WEEK_FALLBACK[1];
-    dayLabel='Свободная неделя';
-  }
-  const newQuests=pool.map((q,i)=>({id:`dq_${sprintDay}_${i}`,name:q.name,cat:q.cat,xp:0,mins:0,done:false,ts:Date.now()}));
+  const dow=new Date().getDay();
+  const pool=WEEK_FALLBACK[dow]||WEEK_FALLBACK[1];
+  const newQuests=pool.map((q,i)=>({id:`dq_${dow}_${i}`,name:q.name,cat:q.cat,xp:0,mins:0,done:false,ts:Date.now()}));
   st.quests=[...newQuests,...aiQuests];
   st.questDate=today;
-  st.sprintDay=sprintDay;
-  st.sprintLabel=dayLabel;
   st.food.entries=[];
   timerState.log=[];saveTimer();
   save();
@@ -749,8 +723,7 @@ function render(){
           <div class="s-field"><label>Сахар</label><input type="number" value="${st.food.goals.sugar||50}" onchange="st.food.goals.sugar=+this.value;save();render()"></div>
         </div>
       </div>
-      <div class="s-section"><div class="s-title">Спринт</div><div class="s-desc">Сейчас: день ${getSprintDay()} из 14. ${getSprintDay()>14?'Спринт завершён! Начни новый.':'Спринт идёт.'}</div><button class="s-btn" onclick="if(confirm('Начать спринт заново с дня 1?')){localStorage.setItem('${SPRINT_START_KEY}',new Date().toISOString().split('T')[0]);st.questDate='';generateDailyQuests();render()}">Перезапустить спринт</button></div>
-      <div class="s-section"><div class="s-title">Данные</div><button class="s-btn danger" onclick="if(confirm('Сбросить?')){localStorage.removeItem('${S_KEY}');localStorage.removeItem('${SPRINT_START_KEY}');st=defs();save();render()}">Сбросить всё</button></div>
+      <div class="s-section"><div class="s-title">Данные</div><button class="s-btn danger" onclick="if(confirm('Сбросить?')){localStorage.removeItem('${S_KEY}');st=defs();save();render()}">Сбросить всё</button></div>
     </div>
 
     <div class="clock-section"><div id="clock"></div><div class="clock-date" id="cdate"></div></div>
@@ -3422,7 +3395,6 @@ function enterStandby(){
         <div class="standby-stat"><div class="standby-stat-val" id="sb-level"></div><div class="standby-stat-label">уровень</div></div>
         <div class="standby-stat"><div class="standby-stat-val" id="sb-xp"></div><div class="standby-stat-label">XP</div></div>
         <div class="standby-stat"><div class="standby-stat-val" id="sb-streak"></div><div class="standby-stat-label">стрик</div></div>
-        <div class="standby-stat"><div class="standby-stat-val" id="sb-day"></div><div class="standby-stat-label">день спринта</div></div>
       </div>
       <div class="standby-xp-bar"><div class="standby-xp-fill" id="sb-xpbar"></div></div>
       <div class="standby-hint">нажми чтобы выйти</div>
@@ -3467,7 +3439,6 @@ function updateStandby(){
   const le=document.getElementById('sb-level');if(le)le.textContent=info.level;
   const xe=document.getElementById('sb-xp');if(xe)xe.textContent=st.totalXP;
   const se=document.getElementById('sb-streak');if(se)se.textContent=st.streak+'д';
-  const sd=document.getElementById('sb-day');if(sd)sd.textContent=getSprintDay()<=14?getSprintDay()+'/14':'—';
   const xb=document.getElementById('sb-xpbar');if(xb)xb.style.width=Math.round(info.cur/info.need*100)+'%';
 }
 
