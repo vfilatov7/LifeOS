@@ -6,7 +6,7 @@
 <title>Life OS</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#6366f1">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Life OS">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -328,7 +328,7 @@ function generateDailyQuests(){
   const aiQuests=st.quests.filter(q=>q.id.startsWith('ai_')&&q.ts&&new Date(q.ts).toDateString()===new Date().toDateString());
   const sprintDay=getSprintDay();
   let pool, dayLabel;
-  if(sprintDay>=1 && sprintDay<=14){
+  if(sprintDay>=1 && sprintDay<=14 && SPRINT_DAYS[sprintDay]){
     const sd=SPRINT_DAYS[sprintDay];
     pool=sd.quests;
     dayLabel=sd.label;
