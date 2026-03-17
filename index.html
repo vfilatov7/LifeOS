@@ -24,6 +24,17 @@ body::after{content:'';position:fixed;bottom:-10%;left:-10%;width:600px;height:6
 
 .tabs{display:flex;gap:3px;background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-radius:16px;padding:4px;margin-bottom:20px;width:fit-content;flex-wrap:wrap;border:1px solid var(--glass-border);box-shadow:var(--glass-shadow)}
 .tab{padding:8px 16px;border-radius:12px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .25s;border:none;background:0 0;font-family:var(--sans)}
+.tab .tab-icon{display:none}
+.page-title{display:none}
+@media(max-width:600px){
+.tabs{position:fixed;bottom:0;left:0;right:0;z-index:100;border-radius:0;margin:0;padding:6px 4px;justify-content:space-around;width:100%;gap:0;border:none;border-top:1px solid var(--glass-border);background:rgba(255,255,255,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 -4px 20px rgba(100,80,160,.08);flex-wrap:nowrap}
+.tab{padding:6px 2px;font-size:0;flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:8px;min-width:0}
+.tab .tab-icon{display:block;font-size:20px;line-height:1}
+.tab .tab-label{font-size:9px;display:block;color:var(--text3)}
+.tab.active .tab-label{color:var(--accent)}
+.app{padding:12px 12px 80px}
+.page-title{display:block;font-size:20px;font-weight:700;margin-bottom:16px;color:var(--text)}
+}
 .tab.active{background:rgba(255,255,255,.8);color:var(--text);box-shadow:0 2px 8px rgba(100,80,160,.1)}.tab:hover:not(.active){color:var(--text);background:rgba(255,255,255,.3)}
 
 .page{display:none}.page.active{display:block}
@@ -591,16 +602,17 @@ function render(){
   const foodDateVal=foodDayDate.toISOString().slice(0,10);
 
   document.getElementById('root').innerHTML=`
+    <div class="page-title">${{quests:'Задания',timer:'Таймер',food:'Еда',money:'Деньги',media:'Развитие',travel:'Мир',reports:'Отчёты',settings:'Настройки'}[tab]||''}</div>
     <div class="tabs">
-      <button class="tab ${tab==='quests'?'active':''}" onclick="switchTab('quests')">Задания</button>
-      <button class="tab ${tab==='timer'?'active':''}" onclick="switchTab('timer')" style="${timerState.running||timerState.paused?'background:var(--green-soft);color:var(--green);font-weight:700;animation:timerPulse 2s ease-in-out infinite':''}">Таймер${timerState.running?' ⏱':''}${timerState.paused?' ⏸':''}</button>
-      <button class="tab ${tab==='food'?'active':''}" onclick="switchTab('food')">Еда</button>
-      <button class="tab ${tab==='money'?'active':''}" onclick="switchTab('money')">Деньги</button>
-      <button class="tab ${tab==='media'?'active':''}" onclick="switchTab('media')">Развитие</button>
-      <button class="tab ${tab==='travel'?'active':''}" onclick="switchTab('travel')">Мир</button>
-      <button class="tab ${tab==='reports'?'active':''}" onclick="switchTab('reports')">Отчёты</button>
-      <button class="tab ${tab==='settings'?'active':''}" onclick="switchTab('settings')">Настройки</button>
-      <button class="tab" onclick="enterStandby()" style="margin-left:auto;opacity:.6">🌙</button>
+      <button class="tab ${tab==='quests'?'active':''}" onclick="switchTab('quests')"><span class="tab-icon">⚔️</span><span class="tab-label">Задания</span></button>
+      <button class="tab ${tab==='timer'?'active':''}" onclick="switchTab('timer')" style="${timerState.running||timerState.paused?'background:var(--green-soft);color:var(--green);font-weight:700;animation:timerPulse 2s ease-in-out infinite':''}"><span class="tab-icon">⏱</span><span class="tab-label">Таймер</span></button>
+      <button class="tab ${tab==='food'?'active':''}" onclick="switchTab('food')"><span class="tab-icon">🍽</span><span class="tab-label">Еда</span></button>
+      <button class="tab ${tab==='money'?'active':''}" onclick="switchTab('money')"><span class="tab-icon">💰</span><span class="tab-label">Деньги</span></button>
+      <button class="tab ${tab==='media'?'active':''}" onclick="switchTab('media')"><span class="tab-icon">📚</span><span class="tab-label">Развитие</span></button>
+      <button class="tab ${tab==='travel'?'active':''}" onclick="switchTab('travel')"><span class="tab-icon">🌍</span><span class="tab-label">Мир</span></button>
+      <button class="tab ${tab==='reports'?'active':''}" onclick="switchTab('reports')"><span class="tab-icon">📊</span><span class="tab-label">Отчёты</span></button>
+      <button class="tab ${tab==='settings'?'active':''}" onclick="switchTab('settings')"><span class="tab-icon">⚙️</span><span class="tab-label">Настройки</span></button>
+      <button class="tab" onclick="enterStandby()" style="margin-left:auto;opacity:.6"><span class="tab-icon">🌙</span><span class="tab-label">Сон</span></button>
     </div>
     <div class="char-card" style="padding:10px 20px;gap:12px">
       <div class="char-avatar" style="width:36px;height:36px;font-size:15px">${st.name.charAt(0).toUpperCase()}</div>
@@ -726,7 +738,6 @@ function render(){
       <div class="s-section"><div class="s-title">Данные</div><button class="s-btn danger" onclick="if(confirm('Сбросить?')){localStorage.removeItem('${S_KEY}');st=defs();save();render()}">Сбросить всё</button></div>
     </div>
 
-    <div class="clock-section"><div id="clock"></div><div class="clock-date" id="cdate"></div></div>
   `;
   // Quest clicks handled via inline onclick on .q and .q-check
   scrollC('chat-msgs');scrollC('food-msgs');updateClock();
