@@ -218,7 +218,7 @@ const KEY_S='lifeos_gemini_key';
 const SUPABASE_FN_URL='https://evylfgkftjkmtosvbmdd.supabase.co/functions/v1/gemini-proxy';
 function getKey(){return localStorage.getItem(KEY_S)||''}
 function setKey(k){localStorage.setItem(KEY_S,k)}
-function hasKey(){return SUPABASE_FN_URL.indexOf('%%')===-1||getKey().startsWith('AIza')}
+function hasKey(){return true}
 async function callAI(sys,msg){
   // Try Supabase proxy first (no key needed), fallback to direct Gemini
   const useProxy=SUPABASE_FN_URL.indexOf('%%')===-1;
@@ -273,7 +273,7 @@ const CHALLENGES=[
   {id:'c20',icon:'✈️',name:'Путешественник',desc:'Посети 3 новых города за год',motivation:'Мир огромен — пора его исследовать',type:'travel_count',target:3,period:365,unit:'городов'},
 ];
 
-function defs(){return{name:'Slava',totalXP:0,
+function defs(){return{name:'',totalXP:0,
   quests:[], // will be filled by generateDailyQuests
   questDate:'', // tracks which day quests were generated for
   food:{entries:[],goals:{kcal:2200,protein:150,fat:70,carbs:250,fiber:30,sugar:50},menu:[]}, // menu: {name,icon,img,kcal,protein,fat,carbs,fiber,comment,ts}
@@ -307,131 +307,17 @@ function getSprintDay(){
   return Math.floor((now-start)/86400000)+1;
 }
 
-// Each day has: base quests + skill quest (progressive)
-const SPRINT_DAYS = {
-  1:{ // Пн — Вход в Python
-    label:'День 1 · Вход в Python',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'🐍 Python: переменные, типы, f-strings. Переписать 1 n8n Code node на Python',cat:'learn'},
-      {name:'Тренировка (зал)',cat:'sport'},
-      {name:'PlayStation',cat:'gaming'},
-    ]},
-  2:{ // Вт — Структуры данных
-    label:'День 2 · Структуры данных',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'🐍 Списки, словари, циклы. Скрипт: парсинг JSON ответа Jira API',cat:'learn'},
-      {name:'CakeCraft 1ч',cat:'code'},
-      {name:'PlayStation / кино',cat:'gaming'},
-    ]},
-  3:{ // Ср — Функции + HTTP
-    label:'День 3 · Функции + HTTP requests',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'🐍 Функции + requests. GET запрос к Jira API → список тикетов',cat:'learn'},
-      {name:'Тренировка (зал)',cat:'sport'},
-      {name:'Чтение (Навал) 20мин',cat:'read'},
-    ]},
-  4:{ // Чт — FastAPI hello world
-    label:'День 4 · FastAPI — первый endpoint',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'⚡ FastAPI: pip install, /health endpoint, async def, path params',cat:'learn'},
-      {name:'CakeCraft 1ч',cat:'code'},
-      {name:'PlayStation',cat:'gaming'},
-    ]},
-  5:{ // Пт — FastAPI + Pydantic
-    label:'День 5 · Pydantic + POST endpoint',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'⚡ Pydantic BaseModel. POST endpoint = webhook receiver на Python',cat:'learn'},
-      {name:'Прогулка 30мин',cat:'walk'},
-      {name:'PS / друзья',cat:'gaming'},
-    ]},
-  6:{ // Сб — Практика: webhook
-    label:'День 6 · Webhook receiver на FastAPI',
-    quests:[
-      {name:'Тренировка утром',cat:'sport'},
-      {name:'🔧 Собрать webhook: FastAPI принимает Jira webhook → парсит → логирует',cat:'learn'},
-      {name:'CakeCraft 2ч',cat:'code'},
-      {name:'PS вечером',cat:'gaming'},
-    ]},
-  7:{ // Вс — Рефлексия
-    label:'День 7 · Обзор недели 1',
-    quests:[
-      {name:'Meal prep',cat:'cook'},
-      {name:'📝 Обзор недели 1: что понял, что нет, 5 bullet points',cat:'learn'},
-      {name:'Свободное время',cat:'rest'},
-      {name:'PlayStation',cat:'gaming'},
-    ]},
-  8:{ // Пн — Gemini API из Python
-    label:'День 8 · LLM API из Python',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'🤖 Вызвать Gemini API из Python: pip install google-genai, отправить промпт, получить ответ',cat:'learn'},
-      {name:'Тренировка (зал)',cat:'sport'},
-      {name:'PlayStation',cat:'gaming'},
-    ]},
-  9:{ // Вт — Structured output
-    label:'День 9 · JSON mode + structured output',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'🤖 JSON mode в Gemini. Классификатор тикетов: описание → {priority, category, hours}',cat:'learn'},
-      {name:'CakeCraft 1ч',cat:'code'},
-      {name:'Чтение (Навал) 20мин',cat:'read'},
-    ]},
-  10:{ // Ср — Embeddings
-    label:'День 10 · Embeddings на практике',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'🧠 Embeddings: 10 описаний тикетов → vectors → cosine similarity. Увидеть кластеры',cat:'learn'},
-      {name:'Тренировка (зал)',cat:'sport'},
-      {name:'Прогулка / отдых',cat:'rest'},
-    ]},
-  11:{ // Чт — pgvector
-    label:'День 11 · Supabase pgvector',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'🗄️ pgvector: таблица с vector колонкой в Supabase, загрузить embeddings, similarity search',cat:'learn'},
-      {name:'CakeCraft 1ч',cat:'code'},
-      {name:'PlayStation',cat:'gaming'},
-    ]},
-  12:{ // Пт — RAG pipeline
-    label:'День 12 · Мини-RAG pipeline',
-    quests:[
-      {name:'Рабочий день Xsolla',cat:'work'},
-      {name:'🔗 RAG: вопрос → embedding → pgvector поиск → контекст + Gemini → ответ. 50 строк Python',cat:'learn'},
-      {name:'Прогулка',cat:'walk'},
-      {name:'PS / друзья',cat:'gaming'},
-    ]},
-  13:{ // Сб — Boss fight: RAG прототип
-    label:'День 13 · 🏆 Boss fight: RAG бот',
-    quests:[
-      {name:'Тренировка утром',cat:'sport'},
-      {name:'🏗️ Прототип: FastAPI + pgvector + Gemini. Загрузить реальные данные (n8n доки / Confluence)',cat:'learn'},
-      {name:'Meal prep',cat:'cook'},
-      {name:'PS вечером',cat:'gaming'},
-    ]},
-  14:{ // Вс — Итог
-    label:'День 14 · Итог спринта',
-    quests:[
-      {name:'Meal prep',cat:'cook'},
-      {name:'📝 Итог 2 недель: что умею, пост в LinkedIn / портфолио, план недели 3-4',cat:'learn'},
-      {name:'Свободное время',cat:'rest'},
-      {name:'PlayStation',cat:'gaming'},
-    ]},
-};
+// Default weekly quest templates (universal)
+const SPRINT_DAYS = {};
 
-// After day 14, fall back to repeating weekly pattern
 const WEEK_FALLBACK = {
-  1:[{name:'Рабочий день Xsolla',cat:'work'},{name:'Тренировка',cat:'sport'},{name:'Скилл-задача (по плану)',cat:'learn'},{name:'PlayStation',cat:'gaming'}],
-  2:[{name:'Рабочий день Xsolla',cat:'work'},{name:'CakeCraft 1ч',cat:'code'},{name:'Скилл-задача (по плану)',cat:'learn'},{name:'PlayStation',cat:'gaming'}],
-  3:[{name:'Рабочий день Xsolla',cat:'work'},{name:'Тренировка',cat:'sport'},{name:'Чтение 20мин',cat:'read'},{name:'Прогулка',cat:'walk'}],
-  4:[{name:'Рабочий день Xsolla',cat:'work'},{name:'CakeCraft 1ч',cat:'code'},{name:'Скилл-задача (по плану)',cat:'learn'},{name:'PlayStation',cat:'gaming'}],
-  5:[{name:'Рабочий день Xsolla',cat:'work'},{name:'Прогулка',cat:'walk'},{name:'PS / друзья',cat:'gaming'},{name:'Свободный вечер',cat:'rest'}],
-  6:[{name:'Тренировка',cat:'sport'},{name:'CakeCraft 2ч',cat:'code'},{name:'Meal prep',cat:'cook'},{name:'PS вечером',cat:'gaming'}],
-  0:[{name:'Meal prep',cat:'cook'},{name:'Обзор недели',cat:'learn'},{name:'Свободное время',cat:'rest'},{name:'PlayStation',cat:'gaming'}],
+  1:[{name:'Рабочий день',cat:'work'},{name:'Тренировка',cat:'sport'},{name:'Обучение',cat:'learn'},{name:'Свободное время',cat:'rest'}],
+  2:[{name:'Рабочий день',cat:'work'},{name:'Код / проект',cat:'code'},{name:'Обучение',cat:'learn'},{name:'Отдых',cat:'gaming'}],
+  3:[{name:'Рабочий день',cat:'work'},{name:'Тренировка',cat:'sport'},{name:'Чтение 20мин',cat:'read'},{name:'Прогулка',cat:'walk'}],
+  4:[{name:'Рабочий день',cat:'work'},{name:'Код / проект',cat:'code'},{name:'Обучение',cat:'learn'},{name:'Отдых',cat:'gaming'}],
+  5:[{name:'Рабочий день',cat:'work'},{name:'Прогулка',cat:'walk'},{name:'Друзья / общение',cat:'social'},{name:'Свободный вечер',cat:'rest'}],
+  6:[{name:'Тренировка',cat:'sport'},{name:'Код / проект',cat:'code'},{name:'Готовка',cat:'cook'},{name:'Отдых',cat:'gaming'}],
+  0:[{name:'Готовка',cat:'cook'},{name:'Обзор недели',cat:'learn'},{name:'Свободное время',cat:'rest'},{name:'Хобби',cat:'hobby'}],
 };
 
 function todayStr(){const d=new Date();return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`}
@@ -848,16 +734,6 @@ function render(){
 
     <!-- SETTINGS -->
     <div class="page ${tab==='settings'?'active':''}">
-      <div class="s-section">
-        <div class="s-title">API-ключ Gemini</div>
-        <div class="s-desc">Получи бесплатно: <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--accent)">aistudio.google.com/apikey</a>. Хранится локально. Модель: Gemini 2.5 Flash.</div>
-        <div class="s-input-row" style="margin-bottom:8px">
-          <input class="s-input" id="api-key" type="password" placeholder="AIza..." value="${getKey()}">
-          <button class="s-btn primary" onclick="setKey(document.getElementById('api-key').value.trim());render()">Сохранить</button>
-          <button class="s-btn" onclick="const i=document.getElementById('api-key');i.type=i.type==='password'?'text':'password'">👁</button>
-        </div>
-        <div class="s-status ${keyOk?'ok':'none'}">${keyOk?'● Готов':'○ Не настроен'}</div>
-      </div>
       <div class="s-section">
         <div class="s-title">Профиль</div>
         <div class="s-field"><label>Имя</label><input type="text" value="${st.name}" onchange="st.name=this.value;save();render()"></div>
