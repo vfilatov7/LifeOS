@@ -338,6 +338,28 @@ if(p.foodHistory&&!p._foodDeduped){const seen=[];p.foodHistory=p.foodHistory.fil
 return p}}catch(e){}return defs()}
 function save(){try{localStorage.setItem(S_KEY,JSON.stringify(st))}catch(e){}}
 function saveAndCheck(){save();checkChallenges()}
+function exportData(){
+  const data=JSON.stringify(st,null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`lifeos-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();URL.revokeObjectURL(url);
+}
+function importData(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!data.totalXP&&data.totalXP!==0){alert('Неверный формат файла');return}
+      if(!confirm('Заменить все данные из backup? Текущие данные будут перезаписаны.'))return;
+      Object.assign(st,data);save();render();
+      alert('Данные импортированы!');
+    }catch(err){alert('Ошибка чтения файла: '+err.message)}
+  };
+  reader.readAsText(file);input.value='';
+}
 let st=load();
 
 // ============ TIMER (init before generateDailyQuests) ============
@@ -735,7 +757,16 @@ function render(){
           <div class="s-field"><label>Сахар</label><input type="number" value="${st.food.goals.sugar||50}" onchange="st.food.goals.sugar=+this.value;save();render()"></div>
         </div>
       </div>
-      <div class="s-section"><div class="s-title">Данные</div><button class="s-btn danger" onclick="if(confirm('Сбросить?')){localStorage.removeItem('${S_KEY}');st=defs();save();render()}">Сбросить всё</button></div>
+      <div class="s-section">
+        <div class="s-title">Данные</div>
+        <div class="s-desc">Экспортируй данные на одном устройстве, импортируй на другом.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <button class="s-btn primary" onclick="exportData()">📥 Скачать backup</button>
+          <button class="s-btn" onclick="document.getElementById('import-file').click()">📤 Загрузить backup</button>
+          <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)">
+        </div>
+        <button class="s-btn danger" onclick="if(confirm('Сбросить?')){localStorage.removeItem('${S_KEY}');st=defs();save();render()}">Сбросить всё</button>
+      </div>
     </div>
 
   `;
