@@ -1,3 +1,43 @@
+# MCP configuration (contains credentials)
+.mcp.json
+.mcp*.json
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Claude Code local files
 .claude/
+
+# Slack MCP cache files
+users_cache.json
+channels_cache*.json
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Supabase temp
 supabase/.temp/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+logs/

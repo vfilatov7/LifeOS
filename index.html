@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Life OS">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
@@ -62,17 +62,18 @@ body::after{content:'';position:fixed;bottom:-10%;left:-10%;width:600px;height:6
 
 .pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
 @media(max-width:800px){.pillars{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:500px){.pillars{grid-template-columns:1fr}}
-.pillar{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-border);border-radius:var(--r);padding:18px;box-shadow:var(--glass-shadow);transition:transform .2s}
+.pillar{background:rgba(255,255,255,.55);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-border);border-radius:var(--r);padding:18px;box-shadow:var(--glass-shadow);transition:transform .2s}
 .pillar:hover{transform:translateY(-2px)}
-.p-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.p-title{font-size:12px;font-weight:600}.p-badge{font-family:var(--mono);font-size:10px;font-weight:500;padding:3px 10px;border-radius:12px}
-.p-bar{width:100%;height:4px;background:rgba(0,0,0,.06);border-radius:3px;margin-bottom:12px}.p-bar-fill{height:100%;border-radius:3px;transition:width .5s ease}
-.quests{display:flex;flex-direction:column;gap:5px}
-.q{display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,.5);border-radius:12px;cursor:pointer;transition:all .2s;border:1px solid rgba(255,255,255,.4);font-size:12px}
-.q:hover{background:rgba(255,255,255,.8);border-color:rgba(255,255,255,.7);transform:translateY(-1px);box-shadow:0 2px 8px rgba(100,80,160,.06)}
+.p-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,.05)}.p-title{font-family:'IBM Plex Mono',var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:1.2px}.p-badge{font-family:'IBM Plex Mono',var(--mono);font-size:10px;font-weight:400;padding:0;background:none;border-radius:0}
+.p-bar{display:none}.p-bar-fill{display:none}
+.quests{display:flex;flex-direction:column;gap:0}
+.q{display:flex;align-items:center;gap:10px;padding:9px 2px;background:none;border-radius:0;cursor:pointer;transition:background .15s;border:none;border-bottom:1px solid rgba(0,0,0,.04);font-size:13px}
+.q:last-child{border-bottom:none}
+.q:hover{background:rgba(0,0,0,.02)}
 .q.done{opacity:.4}.q.done .q-name{text-decoration:line-through}
-.q-check{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--text3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:transparent;transition:all .2s;cursor:pointer}.q-check:hover{border-color:var(--accent);background:var(--accent-soft)}
-.q.done .q-check{border-color:var(--green);background:var(--green);color:#fff;box-shadow:0 2px 8px rgba(16,185,129,.25)}
-.q-name{flex:1}.q-xp{font-family:var(--mono);font-size:10px;color:var(--text3);font-weight:500}.q.done .q-xp{color:var(--green)}.q-time{font-family:var(--mono);font-size:9px;color:var(--text3);background:rgba(0,0,0,.04);padding:2px 6px;border-radius:6px}.q-menu{font-size:14px;color:var(--text3);cursor:pointer;padding:0 2px;opacity:0;transition:opacity .2s;line-height:1;user-select:none}.q:hover .q-menu{opacity:1}
+.q-check{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--text3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:transparent;transition:all .15s;cursor:pointer}.q-check:hover{border-color:var(--accent);background:var(--accent-soft)}
+.q.done .q-check{border-color:var(--green);background:var(--green-soft);color:var(--green);box-shadow:none}
+.q-name{flex:1;font-weight:400}.q-xp{font-family:'IBM Plex Mono',var(--mono);font-size:10px;color:var(--text3);font-weight:300}.q.done .q-xp{color:var(--green)}.q-time{font-family:'IBM Plex Mono',var(--mono);font-size:9px;color:var(--text3);background:none;padding:0}.q-menu{font-size:14px;color:var(--text3);cursor:pointer;padding:0 2px;opacity:0;transition:opacity .15s;line-height:1;user-select:none}.q:hover .q-menu{opacity:1}
 
 .ai-section{background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-border);border-radius:var(--r);padding:18px;box-shadow:var(--glass-shadow);margin-bottom:18px}
 .ai-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}.ai-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(16,185,129,.4)}.ai-dot.off{background:var(--text3);box-shadow:none}.ai-title{font-size:13px;font-weight:600}.ai-hint{font-size:11px;color:var(--text3);margin-left:auto}
@@ -136,7 +137,6 @@ body::after{content:'';position:fixed;bottom:-10%;left:-10%;width:600px;height:6
 .lifeos-popup .leaflet-popup-content-wrapper{border-radius:16px;box-shadow:0 8px 24px rgba(100,80,160,.15);border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}.lifeos-popup .leaflet-popup-tip{background:rgba(255,255,255,.9)}.lifeos-popup .leaflet-popup-content{margin:14px 16px;font-family:var(--sans)}
 .ch-card{padding:12px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--bg3);transition:all .25s;position:relative}
 .ch-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(100,80,160,.1)}
-.ch-card.locked{opacity:.55}.ch-card.locked:hover{opacity:.8}
 .ch-card.active{background:var(--accent-soft);border-color:rgba(99,102,241,.2)}
 .ch-card.completed{background:var(--amber-soft);border-color:rgba(192,139,45,.2);box-shadow:0 0 12px rgba(251,191,36,.2),0 0 4px rgba(251,191,36,.1);animation:goldenGlow 3s ease-in-out infinite}
 @keyframes goldenGlow{0%,100%{box-shadow:0 0 8px rgba(251,191,36,.15)}50%{box-shadow:0 0 18px rgba(251,191,36,.35),0 0 4px rgba(251,191,36,.15)}}
@@ -166,6 +166,19 @@ body::after{content:'';position:fixed;bottom:-10%;left:-10%;width:600px;height:6
 .wt-name{text-align:left;font-weight:500;color:var(--text);font-size:11px;padding-left:4px;display:flex;align-items:center;gap:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .wt-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px}
 .wt-dot.done{background:var(--green-soft);color:var(--green)}.wt-dot.miss{background:rgba(0,0,0,.04);color:var(--text3)}.wt-dot.future{opacity:.3}.wt-dot.inactive{background:rgba(0,0,0,.04);border:1.5px solid rgba(0,0,0,.06)}
+.hm-grid{display:grid;gap:1px;font-size:10px;min-width:max-content}
+.hm-hcell{padding:2px 0;text-align:center;font-family:var(--mono);font-size:8px;color:var(--text3);font-weight:500}
+.hm-hcell.hm-today{color:var(--accent);font-weight:700}
+.hm-name{display:flex;align-items:center;gap:3px;font-size:11px;font-weight:500;padding:2px 4px 2px 0;overflow:hidden;white-space:nowrap}
+.hm-name-text{overflow:hidden;text-overflow:ellipsis;flex:1}
+.hm-stat{font-family:var(--mono);font-size:9px;color:var(--text3);flex-shrink:0}
+.hm-dcell{display:flex;align-items:center;justify-content:center;padding:2px 0}
+.hm-dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,.05);transition:all .15s}
+.hm-dot.done{background:var(--green);opacity:.75}
+.hm-dot.miss{background:rgba(0,0,0,.05);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.hm-dot.inactive{background:rgba(0,0,0,.05)}
+.hm-dot.future{background:rgba(0,0,0,.02)}
+@media(max-width:500px){.hm-dot{width:8px;height:8px}.hm-hcell{font-size:7px}.hm-name{font-size:10px;min-width:60px}}
 .clock-section{text-align:center;padding:20px;font-family:var(--mono);font-size:36px;font-weight:200;color:var(--text3);letter-spacing:3px}.clock-date{font-size:11px;color:var(--text3);margin-top:4px;letter-spacing:1.5px}
 
 @keyframes timerPulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}50%{box-shadow:0 0 0 4px rgba(16,185,129,.2)}}
@@ -303,7 +316,7 @@ function defs(){return{name:'',totalXP:0,
   foodHistory:[],
   streak:3,
   habits:[], // [{id,icon,name,checks:['YYYY-MM-DD',...]}]
-  challenges:{},customChallenges:[],
+  challenges:{},customChallenges:[],foodXpLog:{},
   chatHistory:[],foodChatHistory:[],moneyChatHistory:[],
   media:[], // {type:'film'|'book'|'game', name, rating:1-10, comment, image, ts}
   travel:[], // {country,region,city,dateFrom,dateTo,album,notes,planned:bool,ts}
@@ -383,6 +396,49 @@ let timerInterval=null;
 generateDailyQuests(); // generate quests for today on load
 function calcLv(xp){let lv=1,u=0;while(true){const n=200*lv;if(u+n>xp)return{level:lv,cur:xp-u,need:n};u+=n;lv++}}
 function calcXP(cat,mins){return Math.round((XPM[cat]||0.5)*mins)}
+
+// Normalize food name for grouping: lowercase, sort words, remove filler
+function normFoodName(s){
+  if(!s)return'';
+  const stop=new Set(['с','и','в','на','из','по','для','от','без','к','варёная','варёный','варёные','жареная','жареный','жареные','тушёная','тушёный','тушёные','запечённая','запечённый','запечённые','свежая','свежий','свежие','сырая','сырой','отварная','отварной','отварные']);
+  return s.toLowerCase().replace(/ё/g,'е').replace(/[^а-яa-z0-9\s]/g,'').split(/\s+/).filter(w=>w.length>1&&!stop.has(w)).sort().join(' ').trim();
+}
+
+// ============ FOOD XP ============
+function checkFoodXP(){
+  const today=new Date().toISOString().slice(0,10);
+  if(!st.foodXpLog)st.foodXpLog={};
+  if(st.foodXpLog[today])return; // already awarded today
+  // Calculate today's totals
+  const entries=st.food.entries;
+  if(entries.length===0)return;
+  const t=entries.reduce((a,e)=>({kcal:a.kcal+e.kcal,protein:a.protein+e.protein,fat:a.fat+e.fat,carbs:a.carbs+e.carbs}),{kcal:0,protein:0,fat:0,carbs:0});
+  const g=st.food.goals;
+  let xp=0,reasons=[];
+  // Kcal within ±10%
+  if(g.kcal&&t.kcal>=g.kcal*0.9&&t.kcal<=g.kcal*1.1){xp+=15;reasons.push('ккал в норме +15')}
+  // Protein ≥90%
+  if(g.protein&&t.protein>=g.protein*0.9){xp+=10;reasons.push('белок в норме +10')}
+  // All 4 macros in range (kcal ±10%, protein/fat/carbs ±15%)
+  const kcalOk=g.kcal&&t.kcal>=g.kcal*0.9&&t.kcal<=g.kcal*1.1;
+  const proteinOk=g.protein&&t.protein>=g.protein*0.85&&t.protein<=g.protein*1.15;
+  const fatOk=g.fat&&t.fat>=g.fat*0.85&&t.fat<=g.fat*1.15;
+  const carbsOk=g.carbs&&t.carbs>=g.carbs*0.85&&t.carbs<=g.carbs*1.15;
+  if(kcalOk&&proteinOk&&fatOk&&carbsOk){xp+=10;reasons.push('все макро +10')}
+  if(xp>0){
+    st.foodXpLog[today]={xp,reasons};
+    st.totalXP+=xp;
+    save();
+    showFoodXPPopup(xp,reasons);
+  }
+}
+function showFoodXPPopup(xp,reasons){
+  const el=document.createElement('div');
+  el.style.cssText='position:fixed;top:20%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border:1px solid rgba(16,185,129,.2);border-radius:16px;padding:16px 24px;z-index:9999;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.12);animation:msgIn .4s ease';
+  el.innerHTML=`<div style="font-size:24px;margin-bottom:6px">🥗</div><div style="font-weight:700;font-size:16px;color:var(--green);margin-bottom:4px">+${xp} XP</div><div style="font-size:11px;color:var(--text3)">${reasons.join(' · ')}</div>`;
+  document.body.appendChild(el);
+  setTimeout(()=>{el.style.transition='opacity .5s';el.style.opacity='0';setTimeout(()=>el.remove(),500)},2500);
+}
 
 function addManualQuest(){
   const inp=document.getElementById('mq-name');
@@ -710,16 +766,17 @@ function render(){
             <button onclick="shiftFoodDay(1)" style="background:none;border:none;font-size:14px;cursor:pointer;padding:2px 6px;color:var(--text2);${isToday?'opacity:.3':''}">▶</button>
           </div>
           <div class="macro-summary">${mc(fm.kcal,st.food.goals.kcal,'ккал','var(--coral)')}${mc(fm.protein,st.food.goals.protein,'белок','var(--accent)')}${mc(fm.fat,st.food.goals.fat,'жиры','var(--amber)')}${mc(fm.carbs,st.food.goals.carbs,'углев','var(--green)')}${mc(fm.fiber,st.food.goals.fiber,'клетч','var(--blue)')}${mc(fm.sugar,st.food.goals.sugar||50,'сахар','var(--pink)')}</div>
-          <div class="food-entries">${foodDayEntries.length===0?'<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">Пока пусто</div>':isToday?st.food.entries.map((e,i)=>`<div class="fe"><div class="fe-i">${e.icon||'🍽️'}</div><div class="fe-b"><div class="fe-n">${e.name}${e.grams?' ('+e.grams+'г)':''}</div><div class="fe-m">Б${Math.round(e.protein)} Ж${Math.round(e.fat)} У${Math.round(e.carbs)} Кл${Math.round(e.fiber||0)}${e.sugar?' С'+Math.round(e.sugar):''}</div></div><div class="fe-k">${Math.round(e.kcal)}</div><span style="cursor:pointer;font-size:12px;opacity:.4" onclick="editFoodEntry(${i})">✏️</span><span style="cursor:pointer;font-size:12px;opacity:.4" onclick="deleteFoodEntry(${i})">🗑</span></div>`).join(''):foodDayEntries.map(e=>`<div class="fe"><div class="fe-i">${e.icon||'🍽️'}</div><div class="fe-b"><div class="fe-n">${e.name}${e.grams?' ('+e.grams+'г)':''}</div><div class="fe-m">Б${Math.round(e.protein)} Ж${Math.round(e.fat)} У${Math.round(e.carbs)} Кл${Math.round(e.fiber||0)}${e.sugar?' С'+Math.round(e.sugar):''}</div></div><div class="fe-k">${Math.round(e.kcal)}</div></div>`).join('')}</div>
+          <div class="food-entries">${foodDayEntries.length===0?'<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">Пока пусто</div>':isToday?st.food.entries.map((e,i)=>`<div class="fe"><div class="fe-i">${e.icon||'🍽️'}</div><div class="fe-b"><div class="fe-n">${e.name}${e.grams?' ('+e.grams+'г)':''}</div><div class="fe-m">Б${Math.round(e.protein)} Ж${Math.round(e.fat)} У${Math.round(e.carbs)} Кл${Math.round(e.fiber||0)}${e.sugar?' С'+Math.round(e.sugar):''}</div></div><div class="fe-k">${Math.round(e.kcal)}</div><span style="cursor:pointer;font-size:12px;opacity:.4" onclick="editFoodEntry(${i})">✏️</span><span style="cursor:pointer;font-size:12px;opacity:.4" onclick="deleteFoodEntry(${i})">🗑</span></div>`).join(''):foodDayEntries.map((e,i)=>{const hi=st.foodHistory.indexOf(e);return`<div class="fe"><div class="fe-i">${e.icon||'🍽️'}</div><div class="fe-b"><div class="fe-n">${e.name}${e.grams?' ('+e.grams+'г)':''}</div><div class="fe-m">Б${Math.round(e.protein)} Ж${Math.round(e.fat)} У${Math.round(e.carbs)} Кл${Math.round(e.fiber||0)}${e.sugar?' С'+Math.round(e.sugar):''}</div></div><div class="fe-k">${Math.round(e.kcal)}</div><span style="cursor:pointer;font-size:12px;opacity:.4" onclick="editFoodHistoryEntry(${hi})">✏️</span><span style="cursor:pointer;font-size:12px;opacity:.4" onclick="deleteFoodHistoryEntry(${hi})">🗑</span></div>`}).join('')}</div>
         </div>
-        ${isToday?`<div class="ai-section">
-          <div class="ai-header"><div class="ai-dot ${keyOk?'':'off'}" ${keyOk?'style="background:var(--coral)"':''}></div><div class="ai-title">Трекер еды</div></div>
+        ${!isToday?'<div style="text-align:center;font-size:11px;color:var(--text3);margin:-10px 0 12px">Редактирование записей за '+foodDayLabel.toLowerCase()+'</div>':''}
+        <div class="ai-section">
+          <div class="ai-header"><div class="ai-dot ${keyOk?'':'off'}" ${keyOk?'style="background:var(--coral)"':''}></div><div class="ai-title">Трекер еды${!isToday?' · '+foodDayLabel:''}</div></div>
           <div class="ai-messages" id="food-msgs">${st.foodChatHistory.length===0?`<div class="msg ai">${keyOk?'Напиши что ел — посчитаю КБЖУ.':'API-ключ нужен.'}</div>`:st.foodChatHistory.map(m=>`<div class="msg ${m.role}">${m.html||m.text}</div>`).join('')}</div>
           <div class="ai-input-row">
-            <input class="ai-input" id="food-in" placeholder="${keyOk?'Что ел?':''}" ${keyOk?'':'disabled'} onkeydown="if(event.key==='Enter')sendFood()">
+            <input class="ai-input" id="food-in" placeholder="${keyOk?(isToday?'Что ел?':'Что ел '+foodDayLabel.toLowerCase()+'?'):''}" ${keyOk?'':'disabled'} onkeydown="if(event.key==='Enter')sendFood()">
             <button class="ai-send" onclick="sendFood()" style="background:var(--coral)" ${keyOk?'':'disabled'}>Записать</button>
           </div>
-        </div>`:''}
+        </div>
       `:`
         ${renderFoodMenu()}
       `}
@@ -799,7 +856,7 @@ function rP(title,cats,color,soft){
   const qs=st.quests.filter(q=>cats.includes(q.cat)),done=qs.filter(q=>q.done).reduce((s,q)=>s+q.xp,0);
   const totalMins=qs.filter(q=>q.done).reduce((s,q)=>s+q.mins,0);
   const catsJson=JSON.stringify(cats).replace(/"/g,'&quot;');
-  return`<div class="pillar"><div class="p-head"><div class="p-title" style="color:${color}">${title}</div><div style="display:flex;gap:6px;align-items:center"><div class="p-badge" style="color:${color};background:${soft}">${done} XP</div><button onclick="showAddTaskModal(${catsJson},'${color}')" style="width:26px;height:26px;border-radius:50%;border:1.5px solid ${color};background:${soft};color:${color};font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1" title="Добавить задание">+</button></div></div><div class="p-bar"><div class="p-bar-fill" style="width:${done>0?100:0}%;background:${color}"></div></div>${totalMins?`<div style="font-size:10px;color:var(--text3);margin-bottom:8px;font-family:var(--mono)">${totalMins} мин сегодня</div>`:''}<div class="quests">${qs.map(q=>`<div class="q ${q.done?'done':''}" data-id="${q.id}" onclick="showQuestDetail('${q.id}')"><div class="q-check" onclick="event.stopPropagation();toggleQuestDone('${q.id}')">${q.done?'✓':''}</div><div class="q-name">${q.name}</div>${q.mins?`<div class="q-time">${q.mins}м</div>`:''}<div class="q-xp">${q.done?'+'+q.xp:'?'} XP</div><div class="q-menu" onclick="event.stopPropagation();showQuestMenu('${q.id}')">⋯</div></div>`).join('')}</div></div>`;
+  return`<div class="pillar"><div class="p-head"><div class="p-title" style="color:${color}">${title}</div><div style="display:flex;gap:8px;align-items:baseline">${done?`<div class="p-badge" style="color:${color}">${done} xp</div>`:''}${totalMins?`<div class="p-badge" style="color:var(--text3)">${totalMins}м</div>`:''}<button onclick="showAddTaskModal(${catsJson},'${color}')" style="width:22px;height:22px;border-radius:8px;border:1.5px dashed ${color};background:none;color:${color};font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1;opacity:.5" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.5'" title="Добавить задание">+</button></div></div><div class="quests">${qs.map(q=>`<div class="q ${q.done?'done':''}" data-id="${q.id}" onclick="showQuestDetail('${q.id}')"><div class="q-check" onclick="event.stopPropagation();toggleQuestDone('${q.id}')">${q.done?'✓':''}</div><div class="q-name">${q.name}</div>${q.mins?`<div class="q-time">${q.mins}м</div>`:''}<div class="q-xp">${q.done?'+'+q.xp:''}</div><div class="q-menu" onclick="event.stopPropagation();showQuestMenu('${q.id}')">⋯</div></div>`).join('')}${qs.length===0?'<div style="padding:12px 2px;color:var(--text3);font-size:12px;font-style:italic">пусто</div>':''}</div></div>`;
 }
 function showAddTaskModal(cats,color){
   const catOpts=cats.map(c=>`<option value="${c}">${catEmoji(c)} ${catName(c)}</option>`).join('');
@@ -923,7 +980,7 @@ function calcChallenge(ch){
   }
 }
 
-function getChStatus(id){return st.challenges[id]?.status||'locked'}
+function getChStatus(id){const s=st.challenges[id]?.status;return s==='completed'?'completed':'active'}
 let chCollapsed=true;
 
 let _checkingChallenges=false;
@@ -932,7 +989,8 @@ function checkChallenges(){
   _checkingChallenges=true;
   let completedCh=null;
   getAllChallenges().forEach(ch=>{
-    if(getChStatus(ch.id)!=='active')return;
+    if(st.challenges[ch.id]?.status==='completed')return;
+    if(!st.challenges[ch.id])st.challenges[ch.id]={status:'active',acceptedTs:Date.now()};
     const p=calcChallenge(ch);
     if(p.pct>=100){
       st.challenges[ch.id].status='completed';
@@ -971,7 +1029,7 @@ function showCelebration(ch){
   o.onclick=()=>o.remove();
   o.innerHTML=`<div class="congrats-card" onclick="event.stopPropagation()">
     <div style="font-size:64px;margin-bottom:12px">${ch.icon}</div>
-    <div style="font-size:22px;font-weight:700;margin-bottom:6px">Челлендж выполнен!</div>
+    <div style="font-size:22px;font-weight:700;margin-bottom:6px">Ачивка разблокирована!</div>
     <div style="font-size:15px;color:var(--text2);margin-bottom:4px">${ch.name}</div>
     <div style="font-size:12px;color:var(--text3);font-style:italic;margin-bottom:20px">${ch.motivation}</div>
     <div style="font-size:36px;margin-bottom:16px">🏆</div>
@@ -982,15 +1040,10 @@ function showCelebration(ch){
 }
 
 // ---- INLINE WEEKLY TRACKER ----
-let inlineWtOffset=0;
+let inlineWtOffset=0,habitView='week',habitMonthOffset=0;
 function renderInlineTracker(){
   if(!st.habits)st.habits=[];
   const habits=st.habits;
-
-  const mon=new Date();mon.setDate(mon.getDate()-(mon.getDay()+6)%7+inlineWtOffset*7);mon.setHours(0,0,0,0);
-  const sun=new Date(mon);sun.setDate(sun.getDate()+6);
-  const days=[];for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(d.getDate()+i);days.push(d)}
-  const dayNames=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
   const today=new Date();today.setHours(0,0,0,0);
 
   if(habits.length===0){
@@ -999,6 +1052,13 @@ function renderInlineTracker(){
       <button onclick="showCreateHabitModal()" style="background:var(--accent);color:#fff;border:none;border-radius:12px;padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer">+ Создать трекер</button>
     </div>`;
   }
+
+  if(habitView==='month') return renderHabitMonth(habits,today);
+
+  const mon=new Date();mon.setDate(mon.getDate()-(mon.getDay()+6)%7+inlineWtOffset*7);mon.setHours(0,0,0,0);
+  const sun=new Date(mon);sun.setDate(sun.getDate()+6);
+  const days=[];for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(d.getDate()+i);days.push(d)}
+  const dayNames=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 
   let rows='';
   habits.forEach(h=>{
@@ -1019,12 +1079,68 @@ function renderInlineTracker(){
   return`<div class="card" style="padding:14px;overflow-x:auto">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
       <button onclick="inlineWtOffset--;render()" style="background:none;border:none;font-size:14px;cursor:pointer;padding:2px 6px;color:var(--text2)">◀</button>
-      <div style="font-weight:600;font-size:13px">${mon.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})} — ${sun.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="font-weight:600;font-size:13px">${mon.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})} — ${sun.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}</div>
+        <div class="report-toggle" style="margin:0"><button class="rt-btn active" style="padding:4px 10px;font-size:11px">Нед</button><button class="rt-btn" style="padding:4px 10px;font-size:11px" onclick="habitView='month';habitMonthOffset=0;render()">Мес</button></div>
+      </div>
       <button onclick="inlineWtOffset=Math.min(0,inlineWtOffset+1);render()" style="background:none;border:none;font-size:14px;cursor:pointer;padding:2px 6px;color:var(--text2);${inlineWtOffset>=0?'opacity:.3':''}">▶</button>
     </div>
     <div class="wt-grid">
       <div class="wt-cell wt-head"></div>
       ${days.map((d,i)=>{const isToday=d.getTime()===today.getTime();return`<div class="wt-cell wt-head" style="${isToday?'color:var(--accent);font-weight:700':''}">${dayNames[i]}<br><span style="font-size:9px">${d.getDate()}</span></div>`}).join('')}
+      ${rows}
+    </div>
+    <div style="text-align:center;margin-top:10px">
+      <button onclick="showCreateHabitModal()" style="background:none;border:1px dashed var(--border);border-radius:10px;padding:6px 16px;font-size:11px;color:var(--text3);cursor:pointer">+ Добавить привычку</button>
+    </div>
+  </div>`;
+}
+
+function renderHabitMonth(habits,today){
+  const ref=new Date();ref.setMonth(ref.getMonth()+habitMonthOffset);
+  const year=ref.getFullYear(),month=ref.getMonth();
+  const daysInMonth=new Date(year,month+1,0).getDate();
+  const monthName=ref.toLocaleDateString('ru-RU',{month:'long',year:'numeric'});
+  const isCurrentMonth=habitMonthOffset===0;
+
+  // Build days array
+  const days=[];
+  for(let d=1;d<=daysInMonth;d++) days.push(d);
+
+  // Header row: day numbers
+  const headerCells=days.map(d=>{
+    const isToday=d===today.getDate()&&month===today.getMonth()&&year===today.getFullYear();
+    return`<div class="hm-hcell${isToday?' hm-today':''}">${d}</div>`;
+  }).join('');
+
+  // Habit rows
+  let rows='';
+  habits.forEach(h=>{
+    const checks=h.checks||[];
+    const checkedInMonth=checks.filter(c=>{const dt=new Date(c);return dt.getFullYear()===year&&dt.getMonth()===month}).length;
+    rows+=`<div class="hm-name" onclick="showHabitMenu('${h.id}')" style="cursor:pointer"><span>${h.icon}</span><span class="hm-name-text">${h.name}</span><span class="hm-stat">${checkedInMonth}</span></div>`;
+    days.forEach(d=>{
+      const dateStr=`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const ok=checks.includes(dateStr);
+      const isToday=d===today.getDate()&&month===today.getMonth()&&year===today.getFullYear();
+      const isFuture=new Date(year,month,d)>today;
+      const cls=ok?'done':isFuture?'future':isToday?'miss':'inactive';
+      const click=isToday?`onclick="toggleHabit('${h.id}','${dateStr}')" style="cursor:pointer"`:'';
+      rows+=`<div class="hm-dcell"><div class="hm-dot ${cls}" ${click}></div></div>`;
+    });
+  });
+
+  return`<div class="card" style="padding:14px;overflow-x:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <button onclick="habitMonthOffset--;render()" style="background:none;border:none;font-size:14px;cursor:pointer;padding:2px 6px;color:var(--text2)">◀</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="font-weight:600;font-size:13px;text-transform:capitalize">${monthName}</div>
+        <div class="report-toggle" style="margin:0"><button class="rt-btn" style="padding:4px 10px;font-size:11px" onclick="habitView='week';inlineWtOffset=0;render()">Нед</button><button class="rt-btn active" style="padding:4px 10px;font-size:11px">Мес</button></div>
+      </div>
+      <button onclick="habitMonthOffset=Math.min(0,habitMonthOffset+1);render()" style="background:none;border:none;font-size:14px;cursor:pointer;padding:2px 6px;color:var(--text2);${isCurrentMonth?'opacity:.3':''}">▶</button>
+    </div>
+    <div class="hm-grid" style="grid-template-columns:minmax(70px,auto) repeat(${daysInMonth},1fr)">
+      <div class="hm-hcell"></div>${headerCells}
       ${rows}
     </div>
     <div style="text-align:center;margin-top:10px">
@@ -1119,18 +1235,22 @@ function deleteHabit(id){
 // ---- RENDER CHALLENGES (ACCORDION) ----
 function renderChallenges(){
   const all=getAllChallenges();
-  const activeCount=all.filter(c=>getChStatus(c.id)==='active').length;
   const doneCount=all.filter(c=>getChStatus(c.id)==='completed').length;
+  // Sort: completed last, then by progress descending
   const sorted=[...all].sort((a,b)=>{
-    const ord={active:0,locked:1,completed:2};
-    return(ord[getChStatus(a.id)]??1)-(ord[getChStatus(b.id)]??1);
+    const sa=getChStatus(a.id),sb=getChStatus(b.id);
+    if(sa==='completed'&&sb!=='completed')return 1;
+    if(sa!=='completed'&&sb==='completed')return -1;
+    if(sa==='completed')return 0;
+    const pa=calcChallenge(a).pct,pb=calcChallenge(b).pct;
+    return pb-pa;
   });
-  return`<div class="card" style="padding-bottom:${chCollapsed?'16px':'16px'}">
+  return`<div class="card" style="padding-bottom:16px">
     <div class="ch-header" onclick="chCollapsed=!chCollapsed;render()">
-      <div class="card-title" style="margin:0">Челленджи</div>
-      <span style="font-size:11px;color:var(--text3);font-family:var(--mono)">${activeCount} активн · ${doneCount} выполн</span>
+      <div class="card-title" style="margin:0">Ачивки</div>
+      <span style="font-size:11px;color:var(--text3);font-family:var(--mono)">${doneCount} / ${all.length}</span>
       <div class="ch-actions" onclick="event.stopPropagation()">
-        <button class="ch-act-btn" onclick="showCreateChallengeModal()" title="Создать челлендж">+</button>
+        <button class="ch-act-btn" onclick="showCreateChallengeModal()" title="Создать ачивку">+</button>
       </div>
       <span class="ch-chevron ${chCollapsed?'':'open'}">▼</span>
     </div>
@@ -1138,15 +1258,13 @@ function renderChallenges(){
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;margin-top:12px">
         ${sorted.map(ch=>{
           const s=getChStatus(ch.id);
-          const p=s!=='locked'?calcChallenge(ch):null;
-          const isActive=s==='active',isDone=s==='completed';
+          const p=calcChallenge(ch);
+          const isDone=s==='completed';
           const customCls=ch.custom?' custom':'';
           return`<div class="ch-card ${s}${customCls}" onclick="showChallengeModal('${ch.id}')" style="cursor:pointer">
-            <div class="ch-top"><span class="ch-icon">${ch.icon}</span>${isDone?'<span class="ch-badge done">✓</span>':isActive?'<span class="ch-badge active">'+p.pct+'%</span>':''}</div>
+            <div class="ch-top"><span class="ch-icon">${ch.icon}</span>${isDone?'<span class="ch-badge done">✓</span>':`<span class="ch-badge active">${p.pct}%</span>`}</div>
             <div class="ch-name">${ch.name}</div>
-            ${isActive?`<div class="ch-prog"><div class="ch-prog-fill" style="width:${p.pct}%"></div></div><div class="ch-stat">${p.current} / ${p.target} ${ch.unit}</div>`:''}
-            ${isDone?'<div class="ch-stat" style="color:var(--amber)">Выполнено!</div>':''}
-            ${s==='locked'?'<div class="ch-stat">'+ch.desc+'</div>':''}
+            ${isDone?'<div class="ch-stat" style="color:var(--amber)">Выполнено!</div>':`<div class="ch-prog"><div class="ch-prog-fill" style="width:${p.pct}%"></div></div><div class="ch-stat">${p.current} / ${p.target} ${ch.unit}</div>`}
           </div>`;
         }).join('')}
       </div>
@@ -1176,8 +1294,7 @@ function showChallengeModal(id){
       </div>
       ${dt?`<div style="text-align:center;font-size:11px;color:var(--text3);margin-bottom:16px">Завершён ${dt}</div>`:''}
       <div class="modal-btns"><button class="modal-btn" onclick="this.closest('.modal-overlay').remove()" style="flex:1">Закрыть</button></div>`;
-  }else if(isActive){
-    const daysLeft=ch.period?Math.max(0,ch.period-Math.floor((Date.now()-(cs?.acceptedTs||Date.now()))/864e5)):null;
+  }else{
     let manualBtns='';
     if(ch.type==='manual_count')manualBtns=`<button class="modal-btn primary" onclick="manualIncrement('${ch.id}')">+1</button>`;
     if(ch.type==='manual_streak'){
@@ -1189,52 +1306,25 @@ function showChallengeModal(id){
     body=`
       <div style="text-align:center;margin-bottom:16px"><span style="font-size:48px">${ch.icon}</span></div>
       <h3 style="text-align:center;margin-bottom:2px">${ch.name}</h3>
-      <div style="text-align:center;margin-bottom:16px"><span style="background:var(--green-soft);color:var(--green);padding:3px 12px;border-radius:20px;font-size:11px;font-weight:600">Активен</span></div>
       <p style="text-align:center;color:var(--text2);font-size:13px;margin-bottom:6px">${ch.desc}</p>
       <p style="text-align:center;color:var(--text3);font-size:11px;font-style:italic;margin-bottom:18px">${ch.motivation||''}</p>
       <div style="margin-bottom:8px;border-radius:8px;overflow:hidden;height:12px;background:rgba(0,0,0,.06)">
         <div style="height:100%;width:${p.pct}%;background:linear-gradient(90deg,var(--accent),var(--accent-mid));border-radius:8px;transition:width .4s"></div>
       </div>
       <div style="text-align:center;font-family:var(--mono);font-size:15px;font-weight:700;color:var(--accent);margin-bottom:4px">${p.current} / ${p.target} ${ch.unit}</div>
-      ${daysLeft!==null?`<div style="text-align:center;font-size:11px;color:var(--text3);margin-bottom:12px">Осталось ${daysLeft} ${daysLeft===1?'день':daysLeft<5?'дня':'дней'}</div>`:'<div style="margin-bottom:12px"></div>'}
-      ${p.detail?`<div style="text-align:center;font-size:11px;color:var(--text2);margin-bottom:12px">${p.detail}</div>`:''}
+      ${p.detail?`<div style="text-align:center;font-size:11px;color:var(--text2);margin-bottom:12px">${p.detail}</div>`:'<div style="margin-bottom:12px"></div>'}
       <div class="modal-btns">
-        <button class="modal-btn" onclick="dropChallenge('${ch.id}')" style="color:var(--coral);border-color:var(--coral-soft)">Отказаться</button>
         ${manualBtns}
         <button class="modal-btn" onclick="this.closest('.modal-overlay').remove()">Закрыть</button>
       </div>
-      ${ch.custom?'<div style="text-align:center;margin-top:10px"><button onclick="deleteCustomChallenge(\''+ch.id+'\')" style="background:none;border:none;color:var(--coral);font-size:11px;cursor:pointer;opacity:.6">Удалить челлендж</button></div>':''}`;
-  }else{
-    body=`
-      <div style="text-align:center;margin-bottom:16px"><span style="font-size:48px">${ch.icon}</span></div>
-      <h3 style="text-align:center;margin-bottom:8px">${ch.name}</h3>
-      <p style="text-align:center;color:var(--text2);font-size:13px;margin-bottom:6px">${ch.desc}</p>
-      <p style="text-align:center;color:var(--text3);font-size:11px;font-style:italic;margin-bottom:20px">${ch.motivation||''}</p>
-      <div style="background:var(--accent-soft);border-radius:14px;padding:14px;text-align:center;margin-bottom:18px">
-        <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px">Цель</div>
-        <div style="font-size:20px;font-weight:700;color:var(--text);font-family:var(--mono)">${ch.target} ${ch.unit}</div>
-        ${ch.period?`<div style="font-size:11px;color:var(--text3);margin-top:4px">за ${ch.period} дней</div>`:''}
-      </div>
-      <div class="modal-btns">
-        <button class="modal-btn" onclick="this.closest('.modal-overlay').remove()">Не сейчас</button>
-        <button class="modal-btn primary" onclick="acceptChallenge('${ch.id}')">Принять вызов 🔥</button>
-      </div>
-      ${ch.custom?'<div style="text-align:center;margin-top:10px"><button onclick="deleteCustomChallenge(\''+ch.id+'\')" style="background:none;border:none;color:var(--coral);font-size:11px;cursor:pointer;opacity:.6">Удалить челлендж</button></div>':''}`;
+      ${ch.custom?'<div style="text-align:center;margin-top:10px"><button onclick="deleteCustomChallenge(\''+ch.id+'\')" style="background:none;border:none;color:var(--coral);font-size:11px;cursor:pointer;opacity:.6">Удалить ачивку</button></div>':''}`;
   }
   const o=document.createElement('div');o.className='modal-overlay';
   o.innerHTML=`<div class="modal" style="width:380px">${body}</div>`;
   document.body.appendChild(o);
 }
 
-function acceptChallenge(id){
-  st.challenges[id]={status:'active',acceptedTs:Date.now()};
-  save();document.querySelector('.modal-overlay').remove();render();
-}
-function dropChallenge(id){
-  if(!confirm('Отказаться от челленджа?'))return;
-  st.challenges[id]={status:'locked'};
-  save();document.querySelector('.modal-overlay').remove();render();
-}
+// acceptChallenge/dropChallenge removed — all achievements are always active
 
 // ---- MANUAL CHALLENGE ACTIONS ----
 function manualIncrement(id){
@@ -1267,8 +1357,8 @@ const CH_EMOJIS=['🎯','🔥','💪','📚','🏊','🧘','💧','🎸','✍️
 function showCreateChallengeModal(){
   const o=document.createElement('div');o.className='modal-overlay';
   o.innerHTML=`<div class="modal" style="width:400px">
-    <h3 style="text-align:center;margin-bottom:4px">Новый челлендж</h3>
-    <p style="text-align:center;margin-bottom:16px">Создай свой вызов</p>
+    <h3 style="text-align:center;margin-bottom:4px">Новая ачивка</h3>
+    <p style="text-align:center;margin-bottom:16px">Создай свою цель</p>
     <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px" id="cc-emoji-grid">
       ${CH_EMOJIS.map((e,i)=>`<button onclick="document.querySelectorAll('#cc-emoji-grid button').forEach(b=>b.style.outline='none');this.style.outline='2px solid var(--accent)';document.getElementById('cc-icon').value='${e}'" style="font-size:20px;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--bg3);cursor:pointer;display:flex;align-items:center;justify-content:center;${i===0?'outline:2px solid var(--accent)':''}">${e}</button>`).join('')}
     </div>
@@ -1607,11 +1697,13 @@ function renderReport(){
       return`<div class="cg-wrap">${rows}</div>`;
     }
 
-    // Top products
+    // Top products (group by normalized name)
     const byName={};
     foodH.forEach(e=>{
-      if(!byName[e.name])byName[e.name]={count:0,kcal:0,icon:e.icon||'🍽️'};
-      byName[e.name].count++;byName[e.name].kcal+=e.kcal;
+      const key=e.nname||normFoodName(e.name);
+      if(!key)return;
+      if(!byName[key])byName[key]={count:0,kcal:0,icon:e.icon||'🍽️',displayName:e.name};
+      byName[key].count++;byName[key].kcal+=e.kcal;
     });
     const byFreq=Object.entries(byName).sort((a,b)=>b[1].count-a[1].count);
     const maxFreq=byFreq.length?byFreq[0][1].count:1;
@@ -1633,7 +1725,7 @@ function renderReport(){
     </div>
 
     ${byFreq.length?`<div class="breakdown"><div style="font-size:13px;font-weight:600;margin-bottom:12px">🏆 Топ продуктов</div>
-      ${byFreq.slice(0,7).map(([name,d],i)=>`<div class="bd-row"><div class="bd-icon">${i<3?['🥇','🥈','🥉'][i]:d.icon}</div><div class="bd-name">${name}</div><div class="bd-bar-wrap"><div class="bd-bar-fill" style="width:${Math.round(d.count/maxFreq*100)}%;background:var(--coral)"></div></div><div class="bd-val">${d.count}×</div><div class="bd-fun">${Math.round(d.kcal)} ккал</div></div>`).join('')}
+      ${byFreq.slice(0,7).map(([key,d],i)=>`<div class="bd-row"><div class="bd-icon">${i<3?['🥇','🥈','🥉'][i]:d.icon}</div><div class="bd-name">${d.displayName}</div><div class="bd-bar-wrap"><div class="bd-bar-fill" style="width:${Math.round(d.count/maxFreq*100)}%;background:var(--coral)"></div></div><div class="bd-val">${d.count}×</div><div class="bd-fun">${Math.round(d.kcal)} ккал</div></div>`).join('')}
     </div>`:''}`;
   }
 
@@ -2723,9 +2815,9 @@ let travelMap=null;
 function renderTravelMap(){
   if(!st.travel.length)return'';
   return`
-    <div class="card" style="padding:0;overflow:hidden;border-radius:var(--r)">
-      <div id="travel-map" style="width:100%;height:400px;border-radius:var(--r);z-index:1;background:#e6e5e3"></div>
-      <div style="display:flex;gap:16px;justify-content:center;padding:10px;font-size:10px;color:var(--text3)">
+    <div style="border-radius:var(--r);overflow:hidden;margin-bottom:18px;box-shadow:var(--glass-shadow)">
+      <div id="travel-map" style="width:100%;height:400px;z-index:1"></div>
+      <div style="display:flex;gap:16px;justify-content:center;padding:10px;font-size:10px;color:var(--text3);background:rgba(255,255,255,.55);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur)">
         <div style="display:flex;align-items:center;gap:4px"><div style="width:14px;height:10px;border-radius:3px;background:rgba(99,102,241,.45);border:1px solid #4f46e5"></div>Был</div>
         <div style="display:flex;align-items:center;gap:4px"><div style="width:14px;height:10px;border-radius:3px;background:rgba(245,158,11,.35);border:1px solid #d97706"></div>Планирую</div>
         <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:#818cf8;border:1.5px solid #4f46e5"></div>Город</div>
@@ -3067,7 +3159,7 @@ WEIGHT RULES:
 - "шт": яйцо=60г, сырник=70г, блин=60г, котлета=80г, конфета=15г, банан=120г, яблоко=180г
 
 OUTPUT FORMAT — each object must have ALL these fields:
-{"name":"food name in Russian, NO weight, ≤25 chars","icon":"one emoji","grams":0,"kcal":0,"protein":0.0,"fat":0.0,"carbs":0.0,"fiber":0,"sugar":0,"comment":"fun Russian note ≤8 words"}
+{"name":"food name in Russian, NO weight, ≤25 chars","nname":"canonical short name for grouping, lowercase, ≤20 chars, e.g. 'гречка с курицей' for any variation like 'курица с гречкой','греча с куриной грудкой' etc.","icon":"one emoji","grams":0,"kcal":0,"protein":0.0,"fat":0.0,"carbs":0.0,"fiber":0,"sugar":0,"comment":"fun Russian note ≤8 words"}
 
 EXAMPLES:
 
@@ -3314,9 +3406,19 @@ function confirmLogFromMenu(idx){
   const g=parseFloat(document.getElementById('ml-grams').value);
   if(!g||g<=0){alert('Введи граммы');return}
   const mult=g/100;
-  st.food.entries.push({name:`${m.name} (${g}г)`,icon:m.icon||'🍽️',grams:g,kcal:m.kcal*mult,protein:m.protein*mult,fat:m.fat*mult,carbs:m.carbs*mult,fiber:(m.fiber||0)*mult,sugar:(m.sugar||0)*mult,ts:Date.now()});
-  st.foodHistory.push({name:m.name,icon:m.icon,grams:g,kcal:m.kcal*mult,protein:m.protein*mult,fat:m.fat*mult,carbs:m.carbs*mult,fiber:(m.fiber||0)*mult,sugar:(m.sugar||0)*mult,ts:Date.now()});
+  const entry={name:m.name,icon:m.icon||'🍽️',grams:g,kcal:m.kcal*mult,protein:m.protein*mult,fat:m.fat*mult,carbs:m.carbs*mult,fiber:(m.fiber||0)*mult,sugar:(m.sugar||0)*mult};
+  const isCurrentDay=(foodDayOffset===0&&!foodPickedDate);
+  let targetTs=Date.now();
+  if(!isCurrentDay){
+    const td=foodPickedDate?new Date(foodPickedDate):new Date();
+    if(!foodPickedDate)td.setDate(td.getDate()+foodDayOffset);
+    td.setHours(12,0,0,0);
+    targetTs=td.getTime();
+  }
+  if(isCurrentDay) st.food.entries.push(entry);
+  st.foodHistory.push({...entry,ts:targetTs});
   save();document.querySelector('.modal-overlay').remove();foodTab='tracker';render();
+  if(isCurrentDay)setTimeout(checkFoodXP,300);
 }
 
 function editMenuItem(idx){showMenuItemModal(idx)}
@@ -3360,6 +3462,7 @@ function saveFoodEdit(idx){
   e.fiber=parseFloat(document.getElementById('fe-fiber').value)||0;
   e.sugar=parseFloat(document.getElementById('fe-sugar').value)||0;
   save();document.querySelector('.modal-overlay').remove();render();
+  setTimeout(checkFoodXP,300);
 }
 
 function deleteFoodEntry(idx){
@@ -3368,6 +3471,49 @@ function deleteFoodEntry(idx){
   const e=st.food.entries[idx];
   if(e){const hi=st.foodHistory.findIndex(h=>h.name===e.name&&Math.abs((h.ts||0)-Date.now())<86400000);if(hi>=0)st.foodHistory.splice(hi,1)}
   st.food.entries.splice(idx,1);save();render();
+}
+
+function editFoodHistoryEntry(hi){
+  const e=st.foodHistory[hi];if(!e)return;
+  const o=document.createElement('div');o.className='modal-overlay';
+  o.innerHTML=`<div class="modal">
+    <h3>Редактировать ${e.icon||'🍽️'} ${e.name}</h3>
+    <p>Поправь значения</p>
+    <label style="font-size:11px;color:var(--text3)">Название</label>
+    <input class="modal-input" id="fh-name" value="${e.name}" style="text-align:left;margin-bottom:8px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px">
+      <div><label style="font-size:10px;color:var(--text3)">Граммы</label><input class="modal-input" id="fh-grams" type="number" value="${Math.round(e.grams||0)}" style="font-size:13px"></div>
+      <div><label style="font-size:10px;color:var(--text3)">Ккал</label><input class="modal-input" id="fh-kcal" type="number" value="${Math.round(e.kcal)}" style="font-size:13px"></div>
+      <div><label style="font-size:10px;color:var(--text3)">Белок</label><input class="modal-input" id="fh-protein" type="number" value="${Math.round(e.protein)}" style="font-size:13px"></div>
+      <div><label style="font-size:10px;color:var(--text3)">Жиры</label><input class="modal-input" id="fh-fat" type="number" value="${Math.round(e.fat)}" style="font-size:13px"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px">
+      <div><label style="font-size:10px;color:var(--text3)">Углеводы</label><input class="modal-input" id="fh-carbs" type="number" value="${Math.round(e.carbs)}" style="font-size:13px"></div>
+      <div><label style="font-size:10px;color:var(--text3)">Клетчатка</label><input class="modal-input" id="fh-fiber" type="number" value="${Math.round(e.fiber||0)}" style="font-size:13px"></div>
+      <div><label style="font-size:10px;color:var(--text3)">Сахар</label><input class="modal-input" id="fh-sugar" type="number" value="${Math.round(e.sugar||0)}" style="font-size:13px"></div>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-btn" onclick="this.closest('.modal-overlay').remove()">Отмена</button>
+      <button class="modal-btn primary" onclick="saveFoodHistoryEdit(${hi})">Сохранить</button>
+    </div>
+  </div>`;
+  document.body.appendChild(o);
+}
+function saveFoodHistoryEdit(hi){
+  const e=st.foodHistory[hi];if(!e)return;
+  e.name=document.getElementById('fh-name').value.trim()||e.name;
+  e.grams=parseFloat(document.getElementById('fh-grams').value)||0;
+  e.kcal=parseFloat(document.getElementById('fh-kcal').value)||0;
+  e.protein=parseFloat(document.getElementById('fh-protein').value)||0;
+  e.fat=parseFloat(document.getElementById('fh-fat').value)||0;
+  e.carbs=parseFloat(document.getElementById('fh-carbs').value)||0;
+  e.fiber=parseFloat(document.getElementById('fh-fiber').value)||0;
+  e.sugar=parseFloat(document.getElementById('fh-sugar').value)||0;
+  save();document.querySelector('.modal-overlay').remove();render();
+}
+function deleteFoodHistoryEntry(hi){
+  if(!confirm('Удалить запись?'))return;
+  st.foodHistory.splice(hi,1);save();render();
 }
 
 async function sendFood(){
@@ -3390,16 +3536,26 @@ async function sendFood(){
     }).filter(p=>p.name&&p.name.trim());
     if(Array.isArray(parsed)&&parsed.length>0){
       const parts=[];
+      // Determine target timestamp: today or selected past date
+      const isCurrentDay=(foodDayOffset===0&&!foodPickedDate);
+      let targetTs=Date.now();
+      if(!isCurrentDay){
+        const td=foodPickedDate?new Date(foodPickedDate):new Date();
+        if(!foodPickedDate)td.setDate(td.getDate()+foodDayOffset);
+        td.setHours(12,0,0,0); // midday to avoid timezone edge cases
+        targetTs=td.getTime();
+      }
       for(const p of parsed){
-        const entry={name:p.name,icon:p.icon||'🍽️',grams:Number(p.grams)||0,kcal:Number(p.kcal)||0,protein:Number(p.protein)||0,fat:Number(p.fat)||0,carbs:Number(p.carbs)||0,fiber:Number(p.fiber)||0,sugar:Number(p.sugar)||0};
-        st.food.entries.push(entry);
-        st.foodHistory.push({...entry,ts:Date.now()});
+        const entry={name:p.name,nname:p.nname||normFoodName(p.name),icon:p.icon||'🍽️',grams:Number(p.grams)||0,kcal:Number(p.kcal)||0,protein:Number(p.protein)||0,fat:Number(p.fat)||0,carbs:Number(p.carbs)||0,fiber:Number(p.fiber)||0,sugar:Number(p.sugar)||0};
+        if(isCurrentDay) st.food.entries.push(entry);
+        st.foodHistory.push({...entry,ts:targetTs});
         parts.push(`<strong>${p.name}</strong>${entry.grams?' ('+entry.grams+'г)':''} — ${Math.round(entry.kcal)} ккал<br><span style="font-size:11px;color:var(--text3)">Б${Math.round(entry.protein)} Ж${Math.round(entry.fat)} У${Math.round(entry.carbs)} Кл${Math.round(entry.fiber)} С${Math.round(entry.sugar)}</span>`);
       }
       st.foodChatHistory.push({role:'ai',html:'Записал: '+parts.join('<br style="margin:6px 0">')});
     }else{console.warn('[Food AI fail]',ai,parsed);st.foodChatHistory.push({role:'ai',html:'Не удалось распознать. Попробуй короче: "курица с овощами 300г"'})}
   }catch(e){t.remove();st.foodChatHistory.push({role:'ai',html:'Ошибка связи.'})}
   save();render();
+  setTimeout(checkFoodXP,300);
 }
 
 // ============ HELPERS ============
